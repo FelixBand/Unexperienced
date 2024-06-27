@@ -1,31 +1,29 @@
 package net.smileycorp.unexperienced.client;
 
 import com.google.common.collect.Lists;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
-import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.common.ModConfigSpec;
 
 import java.util.List;
 
 public class ClientConfigHandler {
+	
+	public static final ModConfigSpec config;
 
-	public static final ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
-	public static final ForgeConfigSpec config;
-
-	public static BooleanValue hideBar;
-	private static ConfigValue<List<? extends String>> showBarItemsOption;
-	private static ConfigValue<List<? extends String>> showBarBlocksOption;
+	public static ModConfigSpec.ConfigValue<Boolean> hideBar;
+	private static ModConfigSpec.ConfigValue<List<? extends String>> showBarItemsOption;
+	private static ModConfigSpec.ConfigValue<List<? extends String>> showBarBlocksOption;
 
 	private static List<Item> showBarItems = Lists.newArrayList();
 	private static List<Block> showBarBlocks = Lists.newArrayList();
 
 	static {
+		ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
 		builder.push("general");
 		hideBar = builder.comment("Should the exp bar be hidden?").define("hideBar", true);
 		showBarItemsOption = builder.comment("Items that when held show the xp bar, when hideBar is true.")
@@ -41,9 +39,9 @@ public class ClientConfigHandler {
 			if (showBarItems.isEmpty() &! showBarItemsOption.get().isEmpty()) {
 				for (String item : showBarItemsOption.get()) {
 					try {
-						ResourceLocation loc = new ResourceLocation(item);
-						if (ForgeRegistries.ITEMS.containsKey(loc)) {
-							showBarItems.add(ForgeRegistries.ITEMS.getValue(loc));
+						ResourceLocation loc = ResourceLocation.tryParse(item);
+						if (BuiltInRegistries.ITEM.containsKey(loc)) {
+							showBarItems.add(BuiltInRegistries.ITEM.get(loc));
 						}
 					} catch (Exception e) {}
 				}
@@ -58,9 +56,9 @@ public class ClientConfigHandler {
 			if (showBarBlocks.isEmpty() &! showBarBlocksOption.get().isEmpty()) {
 				for (String block : showBarBlocksOption.get()) {
 					try {
-						ResourceLocation loc = new ResourceLocation(block);
-						if (ForgeRegistries.BLOCKS.containsKey(loc)) {
-							showBarBlocks.add(ForgeRegistries.BLOCKS.getValue(loc));
+						ResourceLocation loc = ResourceLocation.tryParse(block);
+						if (BuiltInRegistries.BLOCK.containsKey(loc)) {
+							showBarBlocks.add(BuiltInRegistries.BLOCK.get(loc));
 						}
 					} catch (Exception e) {}
 				}

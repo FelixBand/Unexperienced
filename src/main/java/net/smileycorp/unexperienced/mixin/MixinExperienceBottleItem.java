@@ -17,11 +17,10 @@ public class MixinExperienceBottleItem {
 
 	@Inject(at=@At("HEAD"), method = "use(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/InteractionHand;)Lnet/minecraft/world/InteractionResultHolder;", cancellable = true)
 	public void use(Level level, Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> callback) {
-		if (CommonConfigHandler.canDrinkBottles()) {
-			player.startUsingItem(hand);
-			callback.setReturnValue(InteractionResultHolder.sidedSuccess(player.getItemInHand(hand), level.isClientSide()));
-			callback.cancel();
-		}
+		if (!CommonConfigHandler.canDrinkBottles()) return;
+		player.startUsingItem(hand);
+		callback.setReturnValue(InteractionResultHolder.sidedSuccess(player.getItemInHand(hand), level.isClientSide()));
+		callback.cancel();
 	}
 
 }

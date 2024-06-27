@@ -1,0 +1,19 @@
+modLoader="javafml" #mandatory
+loaderVersion="${loader_version_range}"
+license="GNU LESSER GENERAL PUBLIC LICENSE Version 2.1"
+
+[[mods]]
+	modId="unexperienced"
+	version="2.0.0"
+	displayName="Unexperienced"
+	displayURL="https://www.curseforge.com/minecraft/mc-mods/unexperienced"
+	updateJSONURL="https://raw.githubusercontent.com/SmileycorpMC/Unexperienced/1.21/update.json"
+	credits="Smileycorp"
+	authors=""
+	description="Disables XP Drops"
+
+[[accessTransformers]]
+	file="META-INF/accesstransformer.cfg"
+	
+[[mixins]]
+	config="unexperienced.mixin.json"

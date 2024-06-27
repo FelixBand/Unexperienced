@@ -1,10 +1,10 @@
 {
   "homepage": "https://www.curseforge.com/minecraft/mc-mods/unexperienced",
-  "1.20": {
-	"2.0.0": "update to 1.20"
+  "1.21": {
+	"2.0.0": "update to 1.21"
   },
   "promos": {
-    "1.20-latest": "2.0.0",
-    "1.20-recommended": "2.0.0"
+    "1.21-latest": "2.0.0",
+    "1.21-recommended": "2.0.0"
   }
 }
